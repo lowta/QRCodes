@@ -8,7 +8,7 @@ Crear un repositorio público `qrcounter`, subir este proyecto a la rama `main` 
 
 ## Agregar counters
 
-Abrir `https://lowta.github.io/qrcounter/agregar/` (no hay enlace en la página principal). Completar los campos, descargar el ZIP y extraerlo. Pulsar **Abrí GitHub para agregar**, arrastrar la carpeta numerada completa y confirmar con **Commit changes**. Esperar a que termine Actions antes de agregar el siguiente.
+Abrir `https://lowta.github.io/QRCodes/agregar/` (no hay enlace en la página principal). Completar los campos, descargar el ZIP y extraerlo. Pulsar **Abrí GitHub para agregar**, arrastrar la carpeta numerada completa y confirmar con **Commit changes**. Esperar a que termine Actions antes de agregar el siguiente.
 
 La página propone el siguiente ID disponible. Los IDs son fijos, no nombres: `001`, `002`, …, `999`, `1000`. No renumerar al editar. Si otra persona agrega simultáneamente, revisar el repo antes de subir para no sobrescribir una carpeta.
 
@@ -43,3 +43,4 @@ Para editar, modificar `datos.json` o reemplazar la imagen en GitHub. Para elimi
 ## Desarrollo
 
 Node.js 22 o superior. `npm test`, `npm run build`, `npm run dev`. Abrir http://127.0.0.1:4173. Sin conexión no se garantiza disponibilidad: no se implementa caché offline. La copia al portapapeles requiere HTTPS o localhost.
+
