@@ -1,0 +1,7 @@
+// ZIP sin compresión: los nombres generados son ASCII y las imágenes ya están comprimidas.
+export function zip(files) {
+  const encoder = new TextEncoder(), local = [], central = []; let offset = 0;
+  function crc(bytes) { let value=0xffffffff; for(const byte of bytes) { value^=byte; for(let i=0;i<8;i++) value=(value>>>1)^((value&1)?0xedb88320:0); } return (value^0xffffffff)>>>0; }
+  for(const file of files) { const name=encoder.encode(file.name), sum=crc(file.bytes), size=file.bytes.length; const header=new Uint8Array(30+name.length), h=new DataView(header.buffer); h.setUint32(0,0x04034b50,true); h.setUint16(4,20,true); h.setUint32(14,sum,true); h.setUint32(18,size,true); h.setUint32(22,size,true); h.setUint16(26,name.length,true); header.set(name,30); local.push(header,file.bytes); const directory=new Uint8Array(46+name.length), d=new DataView(directory.buffer); d.setUint32(0,0x02014b50,true); d.setUint16(4,20,true); d.setUint16(6,20,true); d.setUint32(16,sum,true); d.setUint32(20,size,true); d.setUint32(24,size,true); d.setUint16(28,name.length,true); d.setUint32(42,offset,true); directory.set(name,46); central.push(directory); offset+=header.length+size; }
+  const end=new Uint8Array(22), e=new DataView(end.buffer); e.setUint32(0,0x06054b50,true); e.setUint16(8,files.length,true); e.setUint16(10,files.length,true); e.setUint32(12,central.reduce((sum,a)=>sum+a.length,0),true); e.setUint32(16,offset,true); return new Blob([...local,...central,end],{type:'application/zip'});
+}
